@@ -1,4 +1,5 @@
 class NewsStorage
+
   def current_topic
     user_topic || yandex_topic
   end

@@ -1,0 +1,6 @@
+h1
+  = @topic[:title]
+  | (
+  = l Time.zone.parse(@topic[:date]), format: :short
+  | )
+p = @topic[:text]
