@@ -36,7 +36,16 @@ class NewsStorage
 
   def fetch_field(name)
     json = self.class.redis.get(name)
-    JSON.parse(json).with_indifferent_access if json
+    return if json.blank?
+
+    parsed_topic = JSON.parse(json).with_indifferent_access
+    %i[date expire].each do |attribute|
+      next if parsed_topic[attribute].blank?
+
+      parsed_topic[attribute] = Time.zone.parse(parsed_topic[attribute])
+    end
+
+    parsed_topic
   end
 
   def update_field(name, value, expire: nil)

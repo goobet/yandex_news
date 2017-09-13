@@ -17,6 +17,8 @@ class UserTopic
   private
 
   def expiration_date_cannot_be_in_the_past
-    errors.add(:expire, :cant_be_in_the_past) if expire <= Time.zone.now
+    return if expire.blank? || expire > Time.zone.now
+
+    errors.add(:expire, :cant_be_in_the_past)
   end
 end

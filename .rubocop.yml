@@ -1,4 +1,3 @@
-inherit_from: .rubocop_todo.yml
 Rails:
   Enabled: true
 AllCops:
@@ -13,3 +12,6 @@ Style/Documentation:
 Style/FileName:
   Exclude:
     - 'Gemfile'
+Style/BlockLength:
+  Exclude:
+    - 'spec/**/*.rb'

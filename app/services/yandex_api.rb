@@ -1,8 +1,10 @@
 require 'net/http'
 
 class YandexApi
+  NEWS_URL = 'https://news.yandex.ru'.freeze
+
   def topic
-    response = Net::HTTP.get(URI('https://news.yandex.ru'))
+    response = Net::HTTP.get(URI(NEWS_URL))
     html = Nokogiri::HTML(response)
 
     date = html.css('.story__aside .story__info .story__date')
