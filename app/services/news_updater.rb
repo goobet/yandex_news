@@ -18,5 +18,18 @@ class NewsUpdater
   def process
     topic = @api.topic
     storage.public_send("#{topic_name}=", topic)
+    current = storage.current_topic
+
+    return if storage.previous_topic == current
+
+    publish(current)
+    storage.previous_topic = current
+  end
+
+  private
+
+  def publish(topic)
+    date = I18n.l Time.zone.parse(topic[:date]), format: :short
+    ActionCable.server.broadcast('topics', topic: topic.merge(date: date))
   end
 end

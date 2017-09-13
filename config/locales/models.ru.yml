@@ -1,0 +1,14 @@
+ru:
+  activemodel:
+    attributes:
+      user_topic:
+        title: Заголовок
+        text: Текст
+        expire: Показывать до
+        date: Дата
+    errors:
+      models:
+        user_topic:
+          attributes:
+            expire:
+              cant_be_in_the_past: Не может быть в прошлом

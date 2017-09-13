@@ -1,6 +1,5 @@
-h1
-  = @topic[:title]
-  | (
-  = l Time.zone.parse(@topic[:date]), format: :short
-  | )
-p = @topic[:text]
+.main-topic
+  .page-header
+    h1.title = @topic[:title]
+  p.date = l Time.zone.parse(@topic[:date]), format: :short
+  p.text = @topic[:text]

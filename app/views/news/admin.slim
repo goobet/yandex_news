@@ -1,9 +1,14 @@
-- if @topic
-  h1
-    = @topic[:title]
-    | (
-    = l Time.zone.parse(@topic[:date]), format: :short
-    | )
-  p = @topic[:text]
-- else
-  | Blank
+.page-header
+  h1.title = t('.title')
+- if flash[:notice].present?
+  .alert.alert-success.alert-dismissible.auto-hide role="alert"
+    button type="button" class="close" data-dismiss="alert" aria-label="Close"
+      span aria-hidden="true" &times;
+    = flash[:notice]
+= simple_form_for @topic, url: update_path,
+                          html: { class: 'form-vertical' } do |f|
+  = f.input :title
+  = f.input :text, as: :text
+  = f.input :expire, as: :datetime
+  div
+    = f.submit t('.sumbit'), class: 'btn btn-default'

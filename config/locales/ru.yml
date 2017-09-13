@@ -1,0 +1,7 @@
+ru:
+  news:
+    admin:
+      sumbit: Сохранить
+      title: Авторская новость
+    update:
+      success: Новость успешно обновлена

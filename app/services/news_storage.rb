@@ -1,5 +1,4 @@
 class NewsStorage
-
   def current_topic
     user_topic || yandex_topic
   end
@@ -10,6 +9,14 @@ class NewsStorage
 
   def yandex_topic
     fetch_field(:yandex_topic)
+  end
+
+  def previous_topic
+    fetch_field(:previous_topic)
+  end
+
+  def previous_topic=(topic)
+    update_field(:previous_topic, topic)
   end
 
   def user_topic=(topic)

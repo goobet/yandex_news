@@ -18,6 +18,10 @@ Bundler.require(*Rails.groups)
 
 module YandexNews
   class Application < Rails::Application
+    config.action_cable.mount_path = '/cable'
+    config.i18n.default_locale = :ru
+    config.time_zone = ENV.fetch('RAILS_APPLICATION_TIMEZONE', 'Moscow')
+
     config.load_defaults 5.1
 
     config.active_job.queue_adapter = :sidekiq
