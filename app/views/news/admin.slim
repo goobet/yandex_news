@@ -5,7 +5,7 @@
     button type="button" class="close" data-dismiss="alert" aria-label="Close"
       span aria-hidden="true" &times;
     = flash[:notice]
-= simple_form_for @topic, url: update_path,
+= simple_form_for @topic, url: update_path, method: :patch,
                           html: { class: 'form-vertical' } do |f|
   = f.input :title
   = f.input :text, as: :text

@@ -4,7 +4,7 @@ class NewsController < ApplicationController
   end
 
   def admin
-    @topic = UserTopic.new(topic_from_storage)
+    @topic = UserTopic.new(storage.user_topic)
   end
 
   def update
@@ -32,20 +32,12 @@ class NewsController < ApplicationController
     @topic_params = params.require(:user_topic)
                           .permit(:title, :text)
                           .merge(date: Time.zone.now)
-    @topic_params[:expire] = Time.new(
-      params[:user_topic]['expire(1i)'].to_i,
-      params[:user_topic]['expire(2i)'].to_i,
-      params[:user_topic]['expire(3i)'].to_i,
-      params[:user_topic]['expire(4i)'].to_i,
-      params[:user_topic]['expire(5i)'].to_i
-    ).in_time_zone
+    @topic_params[:expire] = expire_date_param
     @topic_params
   end
 
-  def topic_from_storage
-    topic = storage.user_topic
-    return unless topic
-    expire = Time.zone.parse(storage.user_topic[:expire])
-    topic.merge(expire: expire)
+  def expire_date_param
+    parts = (1..5).to_a.map { |x| params[:user_topic]["expire(#{x}i)"].to_i }
+    Time.new(*parts).in_time_zone
   end
 end
