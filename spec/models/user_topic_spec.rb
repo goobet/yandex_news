@@ -7,7 +7,7 @@ RSpec.describe UserTopic do
   end
 
   let(:invalid_topic) do
-    UserTopic.new(topic.merge(expire: topic[:expire] - 1.second))
+    UserTopic.new(topic.merge(expire: Time.zone.now - 1.second))
   end
 
   subject(:user_topic) { UserTopic.new(topic) }

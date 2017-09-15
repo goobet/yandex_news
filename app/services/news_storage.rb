@@ -16,16 +16,24 @@ class NewsStorage
   end
 
   def previous_topic=(topic)
-    update_field(:previous_topic, topic)
+    assign_topic(:previous_topic, topic)
   end
 
   def user_topic=(topic)
-    expire = (topic[:expire] - Time.zone.now).to_i
-    update_field(:user_topic, topic, expire: expire)
+    assign_topic(:user_topic, topic)
   end
 
   def yandex_topic=(topic)
-    update_field(:yandex_topic, topic)
+    assign_topic(:yandex_topic, topic)
+  end
+
+  def assign_topic(topic_name, topic)
+    if topic_name == :user_topic
+      expire = (topic[:expire] - Time.zone.now).to_i
+      return update_field(:user_topic, topic, expire: expire)
+    end
+
+    update_field(topic_name, topic)
   end
 
   def self.redis
@@ -42,7 +50,7 @@ class NewsStorage
     %i[date expire].each do |attribute|
       next if parsed_topic[attribute].blank?
 
-      parsed_topic[attribute] = Time.zone.parse(parsed_topic[attribute])
+      parsed_topic[attribute] = Time.zone.iso8601(parsed_topic[attribute])
     end
 
     parsed_topic

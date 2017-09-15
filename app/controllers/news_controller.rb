@@ -11,7 +11,7 @@ class NewsController < ApplicationController
     @topic = UserTopic.new(topic_params)
     if @topic.valid?
       NewsUpdater.new(storage: storage,
-                      api: @topic,
+                      topic_provider: @topic,
                       topic_name: :user_topic).process
       YandexUpdateJob.set(wait_until: @topic.expire).perform_later
       redirect_back fallback_location: admin_path, notice: t('.success')

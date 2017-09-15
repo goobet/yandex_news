@@ -11,7 +11,7 @@ RSpec.describe NewsUpdater do
 
       subject(:updater) do
         described_class.new(storage: storage,
-                            api: OpenStruct.new(topic: topic),
+                            topic_provider: OpenStruct.new(topic: topic),
                             topic_name: :yandex_topic)
       end
 
@@ -31,7 +31,7 @@ RSpec.describe NewsUpdater do
 
       subject(:updater) do
         described_class.new(storage: storage,
-                            api: OpenStruct.new(topic: topic),
+                            topic_provider: OpenStruct.new(topic: topic),
                             topic_name: :user_topic)
       end
 

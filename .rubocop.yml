@@ -12,6 +12,6 @@ Style/Documentation:
 Style/FileName:
   Exclude:
     - 'Gemfile'
-Style/BlockLength:
+Metrics/BlockLength:
   Exclude:
     - 'spec/**/*.rb'

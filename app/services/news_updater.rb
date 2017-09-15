@@ -1,15 +1,15 @@
 class NewsUpdater
-  attr_accessor :storage, :api, :topic_name
+  attr_accessor :storage, :topic_provider, :topic_name
 
-  def initialize(storage: NewsStorage.new, api:, topic_name:)
+  def initialize(storage: NewsStorage.new, topic_provider:, topic_name:)
     @storage = storage
-    @api = api
+    @topic_provider = topic_provider
     @topic_name = topic_name
   end
 
   def process
-    topic = @api.topic
-    storage.public_send("#{topic_name}=", topic)
+    topic = @topic_provider.topic
+    storage.assign_topic(topic_name, topic)
 
     current = storage.current_topic
     previous = storage.previous_topic
